@@ -4,6 +4,8 @@ import { PlayList } from "./entity/playlist.entity";
 import { PlayListController } from "./playList.controller";
 import { PlayListService } from "./playList.service";
 import { Track } from "../track/entity/track.entity";
+import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { APP_GUARD } from "@nestjs/core";
 
 @Module({
     imports: [
@@ -16,7 +18,7 @@ import { Track } from "../track/entity/track.entity";
         PlayListService
     ],
     providers: [
-        PlayListService
+        PlayListService,
     ]
 })
 

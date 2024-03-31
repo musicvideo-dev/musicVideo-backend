@@ -1,7 +1,11 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from "@nestjs/common";
+import { Controller, Get, Param, ParseIntPipe, Query, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { PaginationDto } from "src/lib/dto/pagination.dto";
 import { PlayListService } from "./playList.service";
+import { ThrottlerGuard } from "@nestjs/throttler";
+
+
+@UseGuards(ThrottlerGuard)
 
 @ApiTags('PlayList')
 @Controller('/playList')

@@ -6,6 +6,8 @@ import { TrackModule } from './modules/track/track.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { PlayListModule } from './modules/playlist/playlist.module';
 import { AlbumModule } from './modules/album/album.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -25,6 +27,10 @@ import { AlbumModule } from './modules/album/album.module';
       ]
 
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 60,
+      limit: 2,
+    }]),
     ArtistModule,
     TrackModule,
     PlayListModule,
@@ -32,6 +38,11 @@ import { AlbumModule } from './modules/album/album.module';
     AdminModule
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard
+    }
+  ],
 })
 export class AppModule { }
